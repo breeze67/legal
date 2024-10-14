@@ -1,1 +1,6 @@
+-r requirements/base.txt
+-r requirements/tts.txt
+-r requirements/digital_human.txt
+-r requirements/asr.txt
+-r requirements/train.txt
 
