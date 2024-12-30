@@ -2,6 +2,9 @@
 
 基于InternLM实现的法律灯塔-精准法律咨询大模型项目
 
+## 🧩🧩项目架构图
+![架构图](https://github.com/user-attachments/assets/11010e16-5a1a-47ad-afd3-9e1e9b9fe9fb)
+
 ## 📢🔊项目简介
 
 本项目旨在为用户提供高效、精准、专业的法律咨询服务。利用先进的人工智能技术和大规模法律数据，打造出强大的法律咨询大模型。
@@ -28,7 +31,7 @@
 
 法律灯塔精准法律咨询大模型，为您的法律问题提供可靠的指引，让法律不再复杂，为您的生活和事业保驾护航。
 
-## 🧩🧩项目架构图
-![架构图](https://github.com/user-attachments/assets/11010e16-5a1a-47ad-afd3-9e1e9b9fe9fb)
+
+- 本项目的学习路线来自书生浦语第三期训练营优秀项目“销冠-卖货主播大模型” 感谢佬（https://github.com/PeterH0323/Streamer-Sales）
 
 
