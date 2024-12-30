@@ -1,0 +1,104 @@
+妇女权益保障法:
+  delivery_company_name: '1'
+  departure_place: '1'
+  heighlights:
+  - 妇女权利保障
+  - 政治权利平等
+  - 劳动权益保护
+  - 婚姻家庭权益
+  - 人身权利维护
+  - 促进妇女发展
+  id: 1
+  images: product_info/images/妇女权益保障法.png
+  instruction: product_info/instructions/妇女权益保障法.md
+未成年人保护法:
+  delivery_company_name: '1'
+  departure_place: '1'
+  heighlights:
+  - 未成年人权益
+  - 家庭保护职责
+  - 学校保护措施
+  - 社会保护机制'
+  - 司法保护程序
+  - 促进未成年人成长
+  id: 2
+  images: product_info/images/未成年人保护法.png
+  instruction: product_info/instructions/未成年人保护法.md
+老年人权益保障法:
+  delivery_company_name: '1'
+  departure_place: '1'
+  heighlights:
+  - 老年人权益清单
+  - 赡养义务规定
+  - 社会保障制度
+  - 社会服务体系
+  - 宜居环境建设
+  - 保障老年人生活
+  id: 3
+  images: product_info/images/老年人权益保障法.png
+  instruction: product_info/instructions/老年人权益保障法.md
+残疾人保障法:
+  delivery_company_name: '1'
+  departure_place: '1'
+  heighlights:
+  - 残疾人权利确认
+  - 康复服务保障
+  - 教育就业支持
+  - 社会保障措施
+  - 无障碍环境建设, 
+  - 促进残疾人融入社会
+  id: 4
+  images: product_info/images/残疾人保障法.png
+  instruction: product_info/instructions/残疾人保障法.md
+消费者权益保护法:
+  delivery_company_name: '1'
+  departure_place: '1'
+  heighlights:
+  - 消费者权利明确
+  - 经营者义务加重
+  - 特殊群体需求
+  - 消费纠纷解决
+  - 消费者组织作用
+  - 维护消费权益
+  id: 5
+  images: product_info/images/消费者权益保护法.png
+  instruction: product_info/instructions/消费者权益保护法.md
+劳动法:
+  delivery_company_name: '1'
+  departure_place: '1'
+  heighlights:
+  - 劳动合同规范
+  - 劳动报酬保障
+  - 工作时间限制
+  - 休息休假权利
+  - 劳动安全卫生
+  - 维护劳动者权益
+  id: 6
+  images: product_info/images/劳动法.png
+  instruction: product_info/instructions/劳动法.md
+婚姻法:
+  delivery_company_name: '1'
+  departure_place: '1'
+  heighlights:
+  - 婚姻关系确立
+  - 夫妻权利义务
+  - 家庭财产分配
+  - 子女抚养教育
+  - 离婚程序规范
+  - 维护家庭稳定
+  id: 7
+  images: product_info/images/婚姻法.png
+  instruction: product_info/instructions/婚姻法.md
+专利法:
+  delivery_company_name: '1'
+  departure_place: '1'
+  heighlights:
+  - 专利权授予
+  - 专利申请流程
+  - 专利权利范围
+  - 专利侵权判定
+  - 专利保护期限
+  - 鼓励技术创新
+  id: 8
+  images: product_info/images/专利法.png
+  instruction: product_info/instructions/专利法.md
