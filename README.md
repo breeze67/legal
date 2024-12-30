@@ -29,5 +29,6 @@
 法律灯塔精准法律咨询大模型，为您的法律问题提供可靠的指引，让法律不再复杂，为您的生活和事业保驾护航。
 
 ## 🧩🧩项目架构图
+![架构图](https://github.com/user-attachments/assets/11010e16-5a1a-47ad-afd3-9e1e9b9fe9fb)
 
-"E:\桌面\架构图.png"
+
