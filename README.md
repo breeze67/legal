@@ -35,7 +35,8 @@
 
 法律灯塔精准法律咨询大模型，为您的法律问题提供可靠的指引，让法律不再复杂，为您的生活和事业保驾护航。
 
-
-- 本项目的学习路线来自书生浦语第三期实战营优秀项目“销冠-卖货主播大模型” 感谢佬（https://github.com/PeterH0323/Streamer-Sales）
+## 🎉🎉特别感谢
+- 书生浦语第三期实战营优秀项目“销冠-卖货主播大模型” https://github.com/PeterH0323/Streamer-Sales
+- 书生浦语大模型实战营：https://github.com/InternLM/Tutorial
 
 
