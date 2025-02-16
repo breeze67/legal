@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2024.4.16
+# @Author  : HinGwenWong
 
 import copy
 import os
@@ -13,21 +17,22 @@ from utils.web_configs import WEB_CONFIGS
 
 # 初始化 Streamlit 页面配置
 st.set_page_config(
-    page_title="法律灯塔--精准法律咨询大模型⚖️📑",
-    page_icon="⚖️🪧",
+    page_title="法律灯塔--精准法律咨询大模型⚖️",
+    page_icon="  ",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
-        "About": "# 法律灯塔--精准法律咨询大模型 ",
+        "About": "# 法律灯塔--精准法律咨询大模型",
     },
 )
+
 from utils.rag.rag_worker import gen_rag_db
 from utils.tools import resize_image
 
 from utils.model_loader import RAG_RETRIEVER  # isort:skip
 
 
-@st.dialog("详情书", width="large")
+@st.experimental_dialog("详情书", width="large")
 def instruction_dialog(instruction_path):
     """
     显示产品说明书的popup窗口。
@@ -41,9 +46,9 @@ def instruction_dialog(instruction_path):
     with open(instruction_path, "r", encoding="utf-8") as f:
         instruct_lines = "".join(f.readlines())
 
-    st.warning("一定要点击下方的【确定】按钮离开该页面", icon="⚠️")
+    st.warning("点击下方的【确定】按钮离开该页面", icon="⚠️")
     st.markdown(instruct_lines)
-    st.warning("一定要点击下方的【确定】按钮离开该页面", icon="⚠️")
+    #st.warning("一定要点击下方的【确定】按钮离开该页面", icon="⚠️")
     if st.button("确定"):
         st.rerun()
 
@@ -55,11 +60,11 @@ def on_btton_click(*args, **kwargs):
 
     # 根据按钮类型执行相应操作
     if kwargs["type"] == "check_instruction":
-        # 显示说明书
+        # 显示文物详情页
         st.session_state.show_instruction_path = kwargs["instruction_path"]
 
     elif kwargs["type"] == "process_sales":
-        # 切换到法律类型页面
+        # 切换到文物页面
         st.session_state.page_switch = "pages/selling_page.py"
 
         # 更新会话状态中的产品信息
@@ -68,17 +73,25 @@ def on_btton_click(*args, **kwargs):
         product_info_str = product_info_struct[0].replace("{name}", kwargs["product_name"])
         product_info_str += product_info_struct[1].replace("{highlights}", st.session_state.hightlight)
 
-        # 生成法律文案 prompt
+        # 生成文物文案 prompt
         st.session_state.first_input = copy.deepcopy(st.session_state.first_input_template).replace(
             "{product_info}", product_info_str
         )
 
-        # 更新图片路径和法律名称
+        # 更新图片路径和产品名称
         st.session_state.image_path = kwargs["image_path"]
         st.session_state.product_name = kwargs["product_name"]
 
+
         # 设置为默认数字人视频路径
         st.session_state.digital_human_video_path = WEB_CONFIGS.DIGITAL_HUMAN_VIDEO_PATH
+
+        # # 清空语音
+        # if ENABLE_TTS:
+        #     for message in st.session_state.messages:
+        #         if "wav" not in message:
+        #             continue
+        #         Path(message["wav"]).unlink()
 
         # 清空历史对话
         st.session_state.messages = []
@@ -113,7 +126,7 @@ def make_product_container(product_name, product_info, image_height, each_card_o
         # 产品信息展示区域
         with info_col:
 
-            # 亮点展示
+            # 特点展示
             st.subheader("法律特征", divider="grey")
 
             heighlights_str = "、".join(product_info["heighlights"])
@@ -131,6 +144,7 @@ def make_product_container(product_name, product_info, image_height, each_card_o
                     "instruction_path": product_info["instruction"],
                 },
             )
+            # st.button("更新", key=f"update_manual_{product_name}")
 
             # 讲解按钮
             st.subheader("法律讲解专家", divider="grey")
@@ -143,8 +157,6 @@ def make_product_container(product_name, product_info, image_height, each_card_o
                     "product_name": product_name,
                     "heighlights": heighlights_str,
                     "image_path": product_info["images"],
-                    "departure_place": product_info["departure_place"],
-                    "delivery_company_name": product_info["delivery_company_name"],
                 },
             )
 
@@ -224,7 +236,7 @@ def init_product_info():
 
     product_name_list = list(product_info_dict.keys())
 
-    # 生成商品信息
+    # 生成文物信息
     for row_id in range(0, len(product_name_list), WEB_CONFIGS.EACH_ROW_COL):
         for col_id, col_handler in enumerate(st.columns(WEB_CONFIGS.EACH_ROW_COL)):
             with col_handler:
@@ -308,7 +320,7 @@ def main():
             WEB_CONFIGS.ENABLE_AGENT = False
             st.session_state.enable_agent_checkbox = False
 
-    # 获取法律信息
+    # 获取销售信息
     if "sales_info" not in st.session_state:
         get_sales_info()
 
@@ -317,27 +329,29 @@ def main():
     # st.sidebar.page_link("./pages/selling_page.py", label="主播卖货")
 
     # 主页标题
-    st.title("法律灯塔--精准法律咨询大模型⚖️")
-    st.header("法律类型详情页📑")
+
+    # 构造包含居中样式的HTML标题内容
+    centered_title_html = '<h1 style="text-align: center;">法律灯塔--精准法律咨询大模型⚖️</h1>'
+    st.write(centered_title_html, unsafe_allow_html=True)
+
+    st.header("📑法律类型详情页")
 
     # 说明
     st.info(
-        "这里是法律讲解专家后台，这里有专家讲解的法律类型目录，选择一个你感兴趣的法律类型，点击【开始讲解】即可跳转到法律专家讲解页面。如果需要上传更多法律，点击下方的添加按钮即可",
+        "朋友们好，这里是法律讲解专家后台。在此界面，您能够看到由专业法律专家精心梳理、讲解的各类法律类型目录。若您在法律研习、实务操作或日常知识储备等过程中，对其中某一特定法律类型存在深入了解的需求，烦请您点击【开始讲解】按钮，系统将即刻为您跳转至对应的法律专家详细讲解页面，助力您精准获取专业知识。",
         icon="⭐",
     )
 
-    # 初始化法律类型列表
+    # 初始法律列表
     product_num = init_product_info()
 
-    # 侧边栏显示产品数量
+    # 侧边栏显示法律数量
     with st.sidebar:
         # 标题
-        st.header("法律灯塔--精准法律咨询大模型⚖️", divider="grey")
-        st.subheader("功能点：", divider="grey")
-        
+        st.header("法律灯塔--精准法律咨询大模型        ⚖️⭐⚖️⭐⚖️⭐⚖️⭐", divider="grey")
         st.subheader(f"法律专家后台信息", divider="grey")
         st.markdown(f"共有法律：{product_num} 种")
-        st.markdown(f"共有专家讲解：{product_num} 个")
+        st.markdown(f"法律讲解专家：律精灵 ")
 
         if WEB_CONFIGS.ENABLE_TTS:
             # 是否生成 TTS
@@ -351,12 +365,11 @@ def main():
                 "生成数字人视频", value=st.session_state.gen_digital_human_checkbox
             )
 
-    # 添加新法律上传表单
+
+    # 添加新文物上传表单
     with st.form(key="add_product_form"):
-        product_name_input = st.text_input(label="添加法律类型名称")
+        product_name_input = st.text_input(label="添加法律名称")
         heightlight_input = st.text_input(label="添加法律特性，以'、'隔开")
-        departure_place_input = st.text_input(label="发货地")
-        delivery_company_input = st.text_input(label="快递公司名称")
         product_image = st.file_uploader(label="上传法律图片", type=["png", "jpg", "jpeg", "bmp"])
         product_instruction = st.file_uploader(label="上传法律详情书", type=["md"])
         submit_button = st.form_submit_button(label="提交", disabled=WEB_CONFIGS.DISABLE_UPLOAD)
@@ -364,7 +377,7 @@ def main():
         if WEB_CONFIGS.DISABLE_UPLOAD:
             st.info(
                 "Github 上面的代码已支持上传新商品逻辑。\n但因开放性的 Web APP 没有新增商品审核机制，暂不在此开放上传商品。\n您可以 clone 本项目到您的机器启动即可使能上传按钮",
-                icon="⭐",
+                icon="ℹ️",
             )
 
         if submit_button:
@@ -373,13 +386,11 @@ def main():
                 heightlight_input,
                 product_image,
                 product_instruction,
-                departure_place_input,
-                delivery_company_input,
             )
 
 
 def update_product_info(
-    product_name_input, heightlight_input, product_image, product_instruction, departure_place, delivery_company
+    product_name_input, heightlight_input, product_image, product_instruction
 ):
     """
     更新产品信息的函数。
@@ -389,8 +400,6 @@ def update_product_info(
     - heightlight_input: 商品特性输入，字符串类型。
     - product_image: 商品图片，图像类型。
     - product_instruction: 商品说明书，文本类型。
-    - departure_place: 发货地。
-    - delivery_company: 快递公司。
 
     返回值:
     无。该函数直接操作UI状态，不返回任何值。
@@ -400,11 +409,11 @@ def update_product_info(
 
     # 检查入参
     if product_name_input == "" or heightlight_input == "":
-        st.error("法律类型名称和特性不能为空")
+        st.error("法律名称和特征不能为空")
         return
 
     if product_image is None or product_instruction is None:
-        st.error("图片和法律详情书不能为空")
+        st.error("图片和详情书不能为空")
         return
 
     # 显示上传状态，并执行上传操作
@@ -420,11 +429,11 @@ def update_product_info(
         with open(image_save_path, "wb") as file:
             file.write(product_image.getvalue())
 
-        st.write("法律详情书保存中...")
+        st.write("详情书保存中...")
         with open(instruct_save_path, "wb") as file:
             file.write(product_instruction.getvalue())
 
-        st.write("更新法律类型明细表...")
+        st.write("更新法律类型详情页...")
         with open(WEB_CONFIGS.PRODUCT_INFO_YAML_PATH, "r", encoding="utf-8") as f:
             product_info_dict = yaml.safe_load(f)
 
@@ -439,8 +448,6 @@ def update_product_info(
                     "images": str(image_save_path),
                     "instruction": str(instruct_save_path),
                     "id": product_info_dict[max_id_key]["id"] + 1,
-                    "departure_place": departure_place,
-                    "delivery_company_name": delivery_company,
                 }
             }
         )
@@ -464,7 +471,7 @@ def update_product_info(
             RAG_RETRIEVER.get(fs_id="default", config_path=WEB_CONFIGS.RAG_CONFIG_PATH, work_dir=WEB_CONFIGS.RAG_VECTOR_DB_DIR)
 
         # 更新状态
-        status.update(label="添加法律类型成功!", state="complete", expanded=False)
+        status.update(label="添加法律成功!", state="complete", expanded=False)
 
         st.toast("添加法律成功!", icon="🎉")
 
@@ -477,5 +484,6 @@ def update_product_info(
 
 if __name__ == "__main__":
     # streamlit run app.py --server.address=0.0.0.0 --server.port 7860
+
     # print("Starting...")
     main()

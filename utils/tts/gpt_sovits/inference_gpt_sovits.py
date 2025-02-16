@@ -474,7 +474,7 @@ def get_tts_model(voice_character_name="艾丝妲", is_half=True):
     print(f"gpt_path dir = {gpt_path}")
     print(f"sovits_path dir = {sovits_path}")
 
-    inf_name = "12月18日 下午7点16分.wav.wav"
+    inf_name = "平静说话-你们经过的收容舱段收藏着诸多「奇物」和「遗器」，是最核心的研究场所。.wav"
     prompt_text = inf_name.split("-")[-1].replace(".wav", "")
     ref_wav_path = Path(tts_star_model_root).joinpath("参考音频", inf_name)
 

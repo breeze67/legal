@@ -162,7 +162,7 @@ def process_request(func, content_str, func_args, model_name):
 
 
 def gen_product_highlights(dastset_yaml_path, api_yaml_path):
-    """根据法律的 yaml 文件生成每种法律的特点描述
+    """根据产品的 yaml 文件生成每个产品的特点描述
 
     Args:
         dastset_yaml_path (str): 数据集的 yaml 文件路径
@@ -182,7 +182,7 @@ def gen_product_highlights(dastset_yaml_path, api_yaml_path):
 
             product_highlights = call_qwen_message(
                 content_str=product_str,
-                system_str="现在你对任何法律领域都精通，你可以帮我列举每个法律领域的6个关键要点或特色。, 然后用python dict形式输出：{类名：[特点1, 特点2] ...} ，去掉特点12的字样，除python字典外的其他都不要输出，不要有任何的警告信息",
+                system_str="现在你精通任何法律，你可以帮我举例每种的6个特征，, 然后用python dict形式输出：{类名：[特点1, 特点2] ...} ，去掉特点12的字样，除python字典外的其他都不要输出，不要有任何的警告信息",
                 model_type=dashscope.Generation.Models.qwen_turbo,
             )
 
@@ -224,10 +224,9 @@ def gen_dataset(dastset_yaml_path: str, api_yaml_path: str, save_json_root: Path
     # gen_model_type += [dashscope.Generation.Models.qwen_max] * 2
     qwen_model_type = [dashscope.Generation.Models.qwen_max] * gen_num
 
-    for role_type, role_character in dataset_yaml["role_type"].items() : 
+    for role_type, role_character in dataset_yaml["role_type"].items():
 
-        if specific_name != "" and role_type != specific_name : 
-            
+        if specific_name != "" and role_type != specific_name:
             # 只生成特定人物的
             print(f"specific_name = {specific_name}, skipping for {role_type}")
             continue
@@ -246,7 +245,7 @@ def gen_dataset(dastset_yaml_path: str, api_yaml_path: str, save_json_root: Path
         if bk_json_path.exists():
             bk_json_path.unlink()
 
-        # 遍历所有法律类型，方便进度条显示
+        # 遍历所有产品，方便进度条显示
         list_product = [
             product_name
             for _, products in dataset_yaml["product_list"].items()
@@ -259,7 +258,7 @@ def gen_dataset(dastset_yaml_path: str, api_yaml_path: str, save_json_root: Path
 
         pbar = tqdm(total=len(list_product))
 
-        # 遍历法律种类
+        # 遍历产品
         for _, products in dataset_yaml["product_list"].items():
             for _, product_name_list in products.items():
                 for product, hightlights in product_name_list.items():
@@ -275,7 +274,7 @@ def gen_dataset(dastset_yaml_path: str, api_yaml_path: str, save_json_root: Path
                     # 生成数据
                     for idx in range(gen_num):
 
-                        # 随机抽取 ${each_pick_hightlight} 个法律特性
+                        # 随机抽取 ${each_pick_hightlight} 个产品特性
                         if each_pick_hightlight >= len(hightlights):
                             # 超过打乱，增加随机性
                             hightlights_list = random.shuffle(hightlights)
@@ -291,7 +290,7 @@ def gen_dataset(dastset_yaml_path: str, api_yaml_path: str, save_json_root: Path
                             customer_question_type = random.sample(dataset_yaml["customer_question_type"], each_pick_question)
                         customer_question_str = "、".join(customer_question_type)
 
-                        # 法律种类信息
+                        # 商品信息
                         product_info_str = dataset_yaml["product_info_struct"][0].replace("{name}", product)
                         product_info_str += dataset_yaml["product_info_struct"][1].replace("{highlights}", hightlight_str)
 
@@ -304,7 +303,7 @@ def gen_dataset(dastset_yaml_path: str, api_yaml_path: str, save_json_root: Path
                             .replace("{each_conversation_qa}", str(data_gen_setting["each_conversation_qa"]))
                             .replace(
                                 "{dataset_json_format}",
-                                str(data_gen_setting["dataset_json_format"]).replace("{product_info}", product_info_str),
+                                data_gen_setting["dataset_json_format"].replace("{product_info}", product_info_str),
                             )
                         )
 
@@ -367,7 +366,7 @@ if __name__ == "__main__":
     parser.add_argument("--specific_name", type=str, default="", help="Character name for data generation")
     args = parser.parse_args()
 
-    # 生成法律种类特性（可选）
+    # 生成产品特性（可选）
     # gen_product_highlights(args.data_yaml, args.api_yaml)
 
     # 生成对话数据集

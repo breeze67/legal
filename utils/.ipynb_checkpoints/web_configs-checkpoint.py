@@ -11,15 +11,15 @@ class WebConfigs:
     # ==================================================================
     #                             LLM 模型配置
     # ==================================================================
-    if os.getenv("USING_4BIT") == "true":
-        LLM_MODEL_NAME: str = "HinGwenWoong/streamer-sales-lelemiao-7b-4bit"
-    else:
-        LLM_MODEL_NAME: str = "HinGwenWoong/streamer-sales-lelemiao-7b"
 
+    if os.getenv("USING_4BIT") == "true":
+         LLM_MODEL_NAME: str = "HinGwenWoong/streamer-sales-lelemiao-7b-4bit"
+    else:
+         LLM_MODEL_NAME: str = "HinGwenWoong/streamer-sales-lelemiao-7b"
+# /root/copy/weights/llm_weights/HinGwenWoong/mlks_ww_helper
     SALES_NAME: str = "律精灵"  # 启动的角色名
 
     LLM_MODEL_DIR: str = r"./weights/llm_weights/"
-
     # ==================================================================
     #                               组件配置
     # ==================================================================
@@ -40,7 +40,7 @@ class WebConfigs:
     # ==================================================================
     PRODUCT_IMAGE_HEIGHT: int = 400  # 商品图片高度
     EACH_CARD_OFFSET: int = 100  # 每个商品卡片比图片高度多出的距离
-    EACH_ROW_COL: int = 2  # 商品页显示多少列
+    EACH_ROW_COL: int = 1  # 商品页显示多少列
 
     # 定义用户和机器人头像路径
     USER_AVATOR: str = "./assets/user.png"
@@ -80,7 +80,7 @@ class WebConfigs:
     DIGITAL_HUMAN_GEN_PATH: str = r"./work_dirs/digital_human"
     DIGITAL_HUMAN_MODEL_DIR: str = r"./weights/digital_human_weights/"
     DIGITAL_HUMAN_BBOX_SHIFT: int = 0
-    DIGITAL_HUMAN_VIDEO_PATH: str = r"./doc/digital_human/lelemiao_digital_human_video.mp4"
+    DIGITAL_HUMAN_VIDEO_PATH: str = r"./doc/digital_human/ljl_digital_human_video.mp4"
     DIGITAL_HUMAN_FPS: str = 25
 
     # ==================================================================

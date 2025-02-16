@@ -1,5 +1,6 @@
 # modified from https://github.com/yangdongchao/SoundStorm/blob/master/soundstorm/s1/AR/models/t2s_lightning_module.py
 # reference: https://github.com/lifeiteng/vall-e
+#文本到语义的转换
 import os
 import sys
 
