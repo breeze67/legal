@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 ali_qwen_api_key: {ali_api_key}
 baidu_ernie_api_key: {your_baidu_ernie_api_key}
 kimi_api_key: {kimi_api_key}
+=======
+ali_qwen_api_key: {your_ali_qwen_api_key}
+baidu_ernie_api_key: {your_baidu_ernie_api_key}
+kimi_api_key: {your_kimi_api_key}
+>>>>>>> fd6c5396bd9beb2cfb5855f28819d932bacebe16
